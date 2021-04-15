@@ -1,0 +1,73 @@
+# version
+version: "3.8"
+
+# networks
+networks:
+  # network name
+  frmadv-net:
+    #network driver
+    driver: bridge
+
+# services
+services:
+
+  # database container config
+  db-mysql:
+    # image from docker hub
+    image: mysql:8.0
+    # container name
+    container_name: database
+    # when down, restart, except when stopped manually
+    restart: unless-stopped
+    # execute command
+    command: --default-authentication-plugin=mysql_native_password
+    # environment from env_file: - .env
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_ROOT}
+    # mapped ports
+    ports: 
+    # host:container
+      - 3306:3306
+    # networks
+    networks: 
+      - frmadv-net
+    # mapped directories
+    volumes: 
+      - ../frmadv-db:/var/lib/mysql
+  
+  # server container config
+  php8-apache:
+    # container name
+    container_name: server
+    # when down, restart, except when stopped manually
+    restart: unless-stopped
+    # work directory
+    working_dir: /var/www/html
+    # build options
+    build:
+      # arguments
+      args: 
+        user: ${APP_USER}
+        uid: ${APP_UID}
+      # work directory
+      context: .
+      # dockerfile
+      dockerfile: .docker/server.dockerfile
+    # image name
+    image: paulojrn/server
+    # mapped ports
+    ports:
+      # host:container
+      - 80:80
+    # networks
+    networks:
+      - frmadv-net
+    # mapped directories
+    volumes: 
+      - ./:/var/www/html
+    # dependence
+    depends_on:
+      - db-mysql
