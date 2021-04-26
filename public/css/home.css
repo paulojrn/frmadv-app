@@ -118,7 +118,7 @@ nav {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/criminal.jpg");
 }
 
-#card-previdenciario .tab-content {
+#card-previdencia .tab-content {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/previdenciario.jpg");
 }
 
@@ -129,7 +129,6 @@ nav {
 #card-familia .tab-content {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/familia.jpg");
 }
-
 
 #contact-info-column p, #contact-info-column i {
     display: inline;
@@ -186,5 +185,6 @@ nav {
 @media (min-width: 1000px) {
     .card {
         min-height: 24rem;
+        margin: 1rem 0rem;
     }
 }
