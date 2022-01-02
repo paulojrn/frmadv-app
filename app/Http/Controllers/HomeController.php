@@ -35,6 +35,7 @@ class HomeController extends Controller
      */
     public function home(): View|Factory
     {
-        return view('components/home');
+        // return view('components/home');
+        return view('react-home');
     }
 }
