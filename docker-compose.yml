@@ -48,10 +48,11 @@ services:
     working_dir: /var/www/html
     # build options
     build:
-      # arguments
-      args: 
-        user: ${APP_USER}
-        uid: ${APP_UID}
+      # # arguments
+      # args: 
+      #   user: ${APP_USER}
+      #   uid: ${APP_UID}
+      
       # work directory
       context: .
       # dockerfile
@@ -68,6 +69,8 @@ services:
     # mapped directories
     volumes: 
       - ./:/var/www/html
+      - /var/www/html/node_modules
+      - /var/www/html/vendor
     # dependence
     depends_on:
       - db-mysql
